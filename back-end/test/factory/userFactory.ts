@@ -21,7 +21,7 @@ const addUser =async () => {
 		data: {...user, password: hashPass}
 	})
 
-	return user
+	return {email: user.email, password: user.password}
 }
 
 export default {
