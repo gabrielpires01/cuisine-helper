@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { User } from '../schemas/userSchema.js';
-import userService from '../sercvices/userService.js';
+import { User, UserLog } from '../schemas/userSchema.js';
+import userService  from '../sercvices/userService.js';
 
 const signUp =async (req:Request, res: Response) => {
 	const user: User = req.body;
@@ -10,6 +10,15 @@ const signUp =async (req:Request, res: Response) => {
 	return res.send(201)
 }
 
+const signIn =async (req:Request, res: Response) => {
+	const user:UserLog = req.body;
+
+	const token = await userService.signIn(user);
+
+	return res.status(201).send(token)
+}
+
 export {
-	signUp
+	signUp,
+	signIn
 }
