@@ -15,11 +15,11 @@ const signUp =async (user:User) => {
 
 const checkExistingUser = async (email: string) => {
 	const user:users = await userRepository.getUserByEmail(email)
-
+	
 	if (user) throw {message: "Email already in use", status: 409}
 	return 
 }
 
 export default {
-	signUp
+	signUp,
 }
