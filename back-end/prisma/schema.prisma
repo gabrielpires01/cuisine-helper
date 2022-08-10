@@ -14,12 +14,47 @@ model users {
   password  String
   createdAt DateTime   @default(now())
   sessions  sessions[]
+  recipes recipes[]
 }
 
 model sessions {
   id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    Int?
+  userId    Int
+  createdAt DateTime @default(now())
+  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model recipes {
+  id        Int        @id @default(autoincrement())
+  userId Int?
+  image String
+  name String
+  description String
   createdAt DateTime @default(now())
   users     users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  recipesIgredients recipesIgredient[]
+}
+
+model ingredients {
+  id        Int        @id @default(autoincrement())
+  name String @unique
+  recipesIgredients recipesIgredient[]
+}
+
+model measurements {
+  id        Int        @id @default(autoincrement())
+  name String @unique
+  recipesIgredients recipesIgredient[]
+}
+
+model recipesIgredient {
+  id        Int        @id @default(autoincrement())
+  ammount Int
+  recipeId Int
+  measurementId Int
+  ingredientId Int
+  ingresdients ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mesurements measurements @relation(fields: [measurementId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  recipes recipes @relation(fields: [recipeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
