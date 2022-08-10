@@ -1,3 +1,4 @@
+import { Field, OrderBy } from "../controllers/recipeController.js";
 import recipeRepository from "../repositories/recipeRepository.js";
 import { Recipe } from "../schemas/recipeSchema.js";
 
@@ -12,6 +13,7 @@ const getDetailedRecipeById =async (id:number) => {
 	const recipe = await recipeRepository.getDetailedRecipeById(id);
 
 	const organizedRecipe = {
+		Id: recipe.id,
 		Name: recipe.name,
 		Image: recipe.image,
 		AuthorName: recipe.users.name,
@@ -28,8 +30,23 @@ const getRecipeById =async (id:number) => {
 	return recipe
 }
 
+const getAllRecipes =async (field: Field, orderBy: OrderBy) => {
+	
+	const recipes = await recipeRepository.getAll(field, orderBy)
+
+	const organizedRecipes = recipes.map(recipe => ({
+		Id: recipe.id,
+		Name: recipe.name,
+		Image: recipe.image,
+		AuthorName: recipe.users.name,
+	}))
+
+	return organizedRecipes
+}
+
 export default {
 	create,
 	getRecipeById,
-	getDetailedRecipeById
+	getDetailedRecipeById,
+	getAllRecipes
 }

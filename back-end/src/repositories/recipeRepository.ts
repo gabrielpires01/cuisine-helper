@@ -23,6 +23,7 @@ const getDetailedRecipeById =async (id:number) => {
 			id
 		},
 		select: {
+			id: true,
 			name: true,
 			image: true,
 			users: {
@@ -46,8 +47,30 @@ const getDetailedRecipeById =async (id:number) => {
 	return recipe
 }
 
+
+const getAll =async (field, orderBy) => {
+	const recipes = await prisma.recipes.findMany({
+		select: {
+			id: true,
+			name: true,
+			image: true,
+			users: {
+				select: {
+					name: true
+				}
+			}
+		},
+		orderBy: {
+			[field]: orderBy? orderBy: "desc"
+		}
+	})
+
+	return recipes
+}
+
 export default {
 	addRecipe,
 	getOneById,
-	getDetailedRecipeById
+	getDetailedRecipeById,
+	getAll
 }
