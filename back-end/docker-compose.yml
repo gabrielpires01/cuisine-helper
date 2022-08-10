@@ -1,0 +1,35 @@
+version: "3"
+services:
+  db_cuisine:
+    image: postgres:13
+    container_name: db_cuisine
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - cuisine
+
+  app_cuisine:
+    container_name: app_cuisine
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - db_cuisine
+    env_file:
+      - .env
+    networks:
+      - cuisine
+
+volumes:
+    postgres:
+
+networks:
+    cuisine:
+        driver: bridge
