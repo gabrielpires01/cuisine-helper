@@ -13,6 +13,15 @@ const create = async(req: Request, res: Response) => {
 	return res.sendStatus(201)
 }
 
+const getOne =async (req:Request, res: Response) => {
+	const id = req.params.id;
+
+	const recipe = await recipeService.getDetailedRecipeById(Number(id));
+
+	return res.status(200).send(recipe)
+}
+
 export {
-	create
+	create,
+	getOne
 }

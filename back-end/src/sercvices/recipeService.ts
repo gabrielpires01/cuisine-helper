@@ -6,6 +6,21 @@ const create =async (recipe: Recipe) => {
 	return await recipeRepository.addRecipe(recipe)
 }
 
+const getDetailedRecipeById =async (id:number) => {
+	await getRecipeById(id)
+
+	const recipe = await recipeRepository.getDetailedRecipeById(id);
+
+	const organizedRecipe = {
+		Name: recipe.name,
+		Image: recipe.image,
+		AuthorName: recipe.users.name,
+		Ingredients: recipe.recipesIngredients.map(item => `${item.ingredients.name}: ${item.measure}`)
+	}
+
+	return organizedRecipe
+}
+
 const getRecipeById =async (id:number) => {
 	const recipe = await recipeRepository.getOneById(id)
 	if(!recipe) throw {message: "Recipe doesnt exist", status: 404}
@@ -15,5 +30,6 @@ const getRecipeById =async (id:number) => {
 
 export default {
 	create,
-	getRecipeById
+	getRecipeById,
+	getDetailedRecipeById
 }

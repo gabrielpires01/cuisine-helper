@@ -33,20 +33,20 @@ model recipes {
   description String
   createdAt DateTime @default(now())
   users     users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  recipesIgredients recipesIgredient[]
+  recipesIngredients recipesIngredient[]
 }
 
 model ingredients {
   id        Int        @id @default(autoincrement())
   name String @unique
-  recipesIgredients recipesIgredient[]
+  recipesIngredients recipesIngredient[]
 }
 
-model recipesIgredient {
+model recipesIngredient {
   id        Int        @id @default(autoincrement())
   recipeId Int
   measure String
   ingredientId Int
-  ingresdients ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ingredients ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   recipes recipes @relation(fields: [recipeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

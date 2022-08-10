@@ -17,7 +17,37 @@ const getOneById =async (id:number) => {
 	return recipe
 }
 
+const getDetailedRecipeById =async (id:number) => {
+	const recipe = await prisma.recipes.findUnique({
+		where:{
+			id
+		},
+		select: {
+			name: true,
+			image: true,
+			users: {
+				select: {
+					name: true
+				}
+			},
+			recipesIngredients: {
+				select: {
+					measure: true,
+					ingredients: {
+						select: { 
+							name: true
+						}
+					}
+				}
+			}
+		}
+	})
+
+	return recipe
+}
+
 export default {
 	addRecipe,
-	getOneById
+	getOneById,
+	getDetailedRecipeById
 }

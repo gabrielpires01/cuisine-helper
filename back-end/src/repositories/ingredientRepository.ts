@@ -19,7 +19,7 @@ const create=async (name:string) => {
 }
 
 const addIngredientAndMeasure=async (ingredientId: number, measure: string, recipeId) => {
-	await prisma.recipesIgredient.create({
+	await prisma.recipesIngredient.create({
 		data: {
 			recipeId,
   			measure,
