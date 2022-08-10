@@ -7,9 +7,10 @@ interface Error {
 }
 
 const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
+	console.error(error)
 	if (error.message) return res.status(error.status).send(error.message)
 	
-	console.error(error)
+	
 	return res.sendStatus(500)
 }
 

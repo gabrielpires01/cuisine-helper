@@ -42,19 +42,11 @@ model ingredients {
   recipesIgredients recipesIgredient[]
 }
 
-model measurements {
-  id        Int        @id @default(autoincrement())
-  name String @unique
-  recipesIgredients recipesIgredient[]
-}
-
 model recipesIgredient {
   id        Int        @id @default(autoincrement())
-  ammount Int
   recipeId Int
-  measurementId Int
+  measure String
   ingredientId Int
   ingresdients ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  mesurements measurements @relation(fields: [measurementId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   recipes recipes @relation(fields: [recipeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
+import ingredientService from "../sercvices/ingredientService.js";
 import recipeService from "../sercvices/recipeService.js";
 
 const create = async(req: Request, res: Response) => {
 	const {description, name, image, ingredients} = req.body
 	const { id: userId } = res.locals.user
-	
-	await recipeService.create({userId, description, name, image})
+
+	const recipeId = await recipeService.create({userId, description, name, image})
+
+	await ingredientService.handleIngredients(ingredients, recipeId)
 
 	return res.sendStatus(201)
 }
