@@ -1,6 +1,7 @@
 import { Field, OrderBy } from "../controllers/recipeController.js";
 import recipeRepository from "../repositories/recipeRepository.js";
 import { Recipe } from "../schemas/recipeSchema.js";
+import userService from "./userService.js";
 
 const create =async (recipe: Recipe) => {
 	// TO-DO : User can create only unique recipes
@@ -34,6 +35,24 @@ const getAllRecipes =async (field: Field, orderBy: OrderBy) => {
 	
 	const recipes = await recipeRepository.getAll(field, orderBy)
 
+	const organizedRecipes = organizeRecipes(recipes)
+
+	return organizedRecipes
+}
+
+const getAllRecipesByUserId =async(id: number) => {
+	await userService.checkUserById(id)
+
+	const recipes = await recipeRepository.getAllByUserId(id)
+
+	const organizedRecipes = organizeRecipes(recipes)
+
+	return organizedRecipes
+}
+
+
+const organizeRecipes = (recipes) => {
+
 	const organizedRecipes = recipes.map(recipe => ({
 		Id: recipe.id,
 		Name: recipe.name,
@@ -48,5 +67,6 @@ export default {
 	create,
 	getRecipeById,
 	getDetailedRecipeById,
-	getAllRecipes
+	getAllRecipes,
+	getAllRecipesByUserId
 }

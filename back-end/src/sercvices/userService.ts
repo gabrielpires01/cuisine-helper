@@ -36,6 +36,14 @@ const checkExistingUser = async (email: string, type: 'signIn' | 'signUp') => {
 	return user
 }
 
+const checkUserById =async (id:number) => {
+	const user:users = await userRepository.getUserById(id)
+
+	if (!user) throw {message: "user doesnt exist", status: 400}
+
+	return user
+}
+
 const verifyPassword =async (password:string, hashPass: string) => {
 	const verify = bcrypt.compareSync(password, hashPass)
 	if(!verify) throw {message: "Email or password are wrong", status: 400}
@@ -53,4 +61,5 @@ const createToken =async (id:number) => {
 export default {
 	signUp,
 	signIn,
+	checkUserById,
 }

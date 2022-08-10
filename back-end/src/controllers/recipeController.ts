@@ -16,7 +16,7 @@ const create = async(req: Request, res: Response) => {
 	return res.sendStatus(201)
 }
 
-const getOne =async (req:Request, res: Response) => {
+const getOne =async (req: Request, res: Response) => {
 	const id = req.params.id;
 
 	const recipe = await recipeService.getDetailedRecipeById(Number(id));
@@ -24,7 +24,7 @@ const getOne =async (req:Request, res: Response) => {
 	return res.status(200).send(recipe)
 }
 
-const getAll =async (req:Request, res:Response) => {
+const getAll =async (req: Request, res:Response) => {
 	const field = req.query?.field as Field
 	const orderBy = req.query?.orderBy as OrderBy
 
@@ -33,8 +33,17 @@ const getAll =async (req:Request, res:Response) => {
 	return res.status(200).send(recipes)
 }
 
+const getAllByUserId =async (req: Request, res: Response) => {
+	const id = req.params.id
+
+	const recipes = await recipeService.getAllRecipesByUserId(Number(id));
+
+	return res.status(200).send(recipes)
+}
+
 export {
 	create,
 	getOne,
-	getAll
+	getAll,
+	getAllByUserId
 }

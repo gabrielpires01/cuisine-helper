@@ -1,3 +1,4 @@
+import { Field, OrderBy } from "../controllers/recipeController.js";
 import { prisma } from "../database.js";
 import { Recipe } from "../schemas/recipeSchema.js";
 
@@ -47,8 +48,8 @@ const getDetailedRecipeById =async (id:number) => {
 	return recipe
 }
 
-
-const getAll =async (field, orderBy) => {
+// TO-DO merge both functions
+const getAll =async (field: Field, orderBy: OrderBy) => {
 	const recipes = await prisma.recipes.findMany({
 		select: {
 			id: true,
@@ -68,9 +69,33 @@ const getAll =async (field, orderBy) => {
 	return recipes
 }
 
+const getAllByUserId =async (userId: number) => {
+	const recipes = await prisma.recipes.findMany({
+		where: {
+			userId
+		},
+		select: {
+			id: true,
+			name: true,
+			image: true,
+			users: {
+				select: {
+					name: true
+				}
+			}
+		},
+		orderBy: {
+			createdAt: "desc"
+		}
+	})
+
+	return recipes
+}
+
 export default {
 	addRecipe,
 	getOneById,
 	getDetailedRecipeById,
-	getAll
+	getAll,
+	getAllByUserId
 }
