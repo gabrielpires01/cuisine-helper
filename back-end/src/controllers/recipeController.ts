@@ -8,7 +8,7 @@ export type OrderBy = "asc" | "desc";
 export interface RecipeUpdate {
 	image?: string
 	name?: string
-	descriprion?: string
+	description?: string
 	ingredients?: object
 }
 
@@ -27,8 +27,8 @@ const update =async (req: Request, res: Response) => {
 	const id = req.params.id
 	const recipe: RecipeUpdate = req.body
 
-	if(recipe.image || recipe.descriprion || recipe.name) {
-		await recipeService.update(Number(id), {image: recipe.image, descriprion: recipe.descriprion, name: recipe.name})
+	if(recipe.image || recipe.description || recipe.name) {
+		await recipeService.update(Number(id), {image: recipe.image, description: recipe.description, name: recipe.name})
 	} 
 
 	if(recipe.ingredients) {
