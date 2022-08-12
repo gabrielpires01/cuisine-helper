@@ -1,4 +1,4 @@
-import { Field, OrderBy } from "../controllers/recipeController.js";
+import { Field, OrderBy, RecipeUpdate } from "../controllers/recipeController.js";
 import recipeRepository from "../repositories/recipeRepository.js";
 import { Recipe } from "../schemas/recipeSchema.js";
 import userService from "./userService.js";
@@ -6,6 +6,13 @@ import userService from "./userService.js";
 const create =async (recipe: Recipe) => {
 	// TO-DO : User can create only unique recipes
 	return await recipeRepository.addRecipe(recipe)
+}
+
+const update =async (recipeId: number ,recipe: Omit<RecipeUpdate, "ingredients">) => {
+	await getRecipeById(recipeId)
+	await recipeRepository.updateRecipe(recipeId, recipe)
+
+	return
 }
 
 const getDetailedRecipeById =async (id:number) => {
@@ -65,6 +72,7 @@ const organizeRecipes = (recipes) => {
 
 export default {
 	create,
+	update,
 	getRecipeById,
 	getDetailedRecipeById,
 	getAllRecipes,

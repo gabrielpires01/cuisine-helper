@@ -1,4 +1,4 @@
-import { Field, OrderBy } from "../controllers/recipeController.js";
+import { Field, OrderBy, RecipeUpdate } from "../controllers/recipeController.js";
 import { prisma } from "../database.js";
 import { Recipe } from "../schemas/recipeSchema.js";
 
@@ -9,10 +9,29 @@ const addRecipe =async (recipe: Recipe) => {
 	return id
 }
 
+const updateRecipe =async (recipeId:number, recipe: Omit<RecipeUpdate, "ingredients">) => {
+	await prisma.recipes.update({
+		where: {
+			id: recipeId
+		},
+		data: recipe
+	})
+	return
+}
+
 const getOneById =async (id:number) => {
 	const recipe = await prisma.recipes.findUnique({
 		where: {
 			id
+		},
+		select: {
+			id: true,
+			recipesIngredients: {
+				select: {
+					id: true,
+					ingredientId: true
+				}
+			}
 		}
 	})
 	return recipe
@@ -97,5 +116,6 @@ export default {
 	getOneById,
 	getDetailedRecipeById,
 	getAll,
-	getAllByUserId
+	getAllByUserId,
+	updateRecipe
 }

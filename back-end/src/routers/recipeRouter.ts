@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { create, getAll, getAllByUserId, getOne } from "../controllers/recipeController.js";
+import { create, getAll, getAllByUserId, getOne, update } from "../controllers/recipeController.js";
 import validateToken from "../middlewares/authMiddleware.js";
 import { validateSchema } from "../middlewares/schemaValidationMiddleware.js";
 import recipeSchema from "../schemas/recipeSchema.js";
@@ -10,5 +10,6 @@ recipeRouter.post("/recipe", validateToken, validateSchema(recipeSchema.recipeSc
 recipeRouter.get("/recipe/:id", getOne)
 recipeRouter.get("/recipes", getAll)
 recipeRouter.get("/recipes/:id", getAllByUserId)
+recipeRouter.put("/recipe/:id", validateToken, update)
 
 export default recipeRouter

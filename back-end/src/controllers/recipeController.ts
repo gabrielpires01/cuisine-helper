@@ -5,7 +5,14 @@ import recipeService from "../sercvices/recipeService.js";
 export type Field = "createdAt";
 export type OrderBy = "asc" | "desc";
 
-const create = async(req: Request, res: Response) => {
+export interface RecipeUpdate {
+	image?: string
+	name?: string
+	descriprion?: string
+	ingredients?: object
+}
+
+const create =async (req: Request, res: Response) => {
 	const {description, name, image, ingredients} = req.body
 	const { id: userId } = res.locals.user
 
@@ -14,6 +21,21 @@ const create = async(req: Request, res: Response) => {
 	await ingredientService.handleIngredients(ingredients, recipeId)
 
 	return res.sendStatus(201)
+}
+
+const update =async (req: Request, res: Response) => {
+	const id = req.params.id
+	const recipe: RecipeUpdate = req.body
+
+	if(recipe.image || recipe.descriprion || recipe.name) {
+		await recipeService.update(Number(id), {image: recipe.image, descriprion: recipe.descriprion, name: recipe.name})
+	} 
+
+	if(recipe.ingredients) {
+		await ingredientService.updateIngredientMeasure(recipe.ingredients, Number(id))
+	}
+
+	return res.sendStatus(202)
 }
 
 const getOne =async (req: Request, res: Response) => {
@@ -43,6 +65,7 @@ const getAllByUserId =async (req: Request, res: Response) => {
 
 export {
 	create,
+	update,
 	getOne,
 	getAll,
 	getAllByUserId

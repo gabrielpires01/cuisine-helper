@@ -9,6 +9,28 @@ const getOne =async (name:string) => {
 	return ingredient
 }
 
+const getOneWithRecipe =async (name:string, recipeId:number) => {
+	const ingredient = await prisma.ingredients.findUnique({
+		where: {
+			name
+		},
+		select: {
+			id:true,
+			name: true,
+			recipesIngredients: {
+				where: {
+					recipeId
+				},
+				select: {
+					id: true
+				}
+
+			}
+		}
+	})
+	return ingredient
+}
+
 const create=async (name:string) => {
 	const ingredient = await prisma.ingredients.create({
 		data: {
@@ -18,20 +40,8 @@ const create=async (name:string) => {
 	return ingredient
 }
 
-const addIngredientAndMeasure=async (ingredientId: number, measure: string, recipeId) => {
-	await prisma.recipesIngredient.create({
-		data: {
-			recipeId,
-  			measure,
-  			ingredientId
-		}
-	})
-
-	return
-}
-
 export default {
 	getOne,
 	create,
-	addIngredientAndMeasure
+	getOneWithRecipe,
 }
