@@ -35,7 +35,7 @@ const update =async (req: Request, res: Response) => {
 		await ingredientService.updateIngredientMeasure(recipe.ingredients, Number(id))
 	}
 
-	return res.sendStatus(202)
+	return res.sendStatus(201)
 }
 
 const deleteRecipe =async (req: Request, res: Response) => {

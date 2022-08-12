@@ -6,6 +6,7 @@ const addRecipe =async (recipe: Recipe) => {
 	const {id} = await prisma.recipes.create({
 		data:recipe
 	})
+	
 	return id
 }
 

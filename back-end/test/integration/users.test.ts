@@ -17,9 +17,9 @@ describe('Users test', () => {
 	})
 
 	it("Should create user", async() => {
-		const user = await userFactory.addUser();
+		const {email , password} = await userFactory.addUser();
 
-		const res = await supertest(app).post("/signIn").send(user)
+		const res = await supertest(app).post("/signIn").send({email , password})
 
 		expect(res.status).toBe(201)
 		expect(res.body).toBeTruthy()
