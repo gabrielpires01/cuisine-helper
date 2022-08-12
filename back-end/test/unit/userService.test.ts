@@ -18,7 +18,7 @@ const test = {
 }
 
 describe('Test user Service', () => {
-	it("Throw error 409 if user exists", async () => {
+	it("SignUp Throw error 409 if user exists", async () => {
 		const user = userFactory.createUser()
 		jest.spyOn(userRepository, "getUserByEmail")
 			.mockResolvedValueOnce(test)
@@ -27,7 +27,7 @@ describe('Test user Service', () => {
 			.catch(err => expect(err.status).toBe(409))
 	})
 
-	it("Throw error 400 if user doesnt exist", async () => {
+	it("SignIn Throw error 400 if user doesnt exist", async () => {
 		const user = await userFactory.addUser()
 		jest.spyOn(userRepository, "getUserByEmail")
 			.mockResolvedValueOnce(null)
@@ -36,7 +36,7 @@ describe('Test user Service', () => {
 			.catch(err => expect(err.status).toBe(400))
 	})
 
-	it("Throw error 400 if password is wrong", async () => {
+	it("SignIn Throw error 400 if password is wrong", async () => {
 		const user = await userFactory.addUser()
 		jest.spyOn(userRepository, "getUserByEmail")
 			.mockResolvedValueOnce(test)
@@ -45,6 +45,14 @@ describe('Test user Service', () => {
 			.mockImplementationOnce(() => false)
 		
 		await userService.signIn(user)
+			.catch(err => expect(err.status).toBe(400))
+	})
+
+	it("Check user Throw error 400 if user doesnt exist",async () => {
+		jest.spyOn(userRepository, "getUserById")
+			.mockResolvedValueOnce(null)
+		
+		await userService.checkUserById(1)
 			.catch(err => expect(err.status).toBe(400))
 	})
 })
