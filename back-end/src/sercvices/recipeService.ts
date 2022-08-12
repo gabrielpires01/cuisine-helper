@@ -7,15 +7,21 @@ const create =async (recipe: Recipe) => {
 	return await recipeRepository.addRecipe(recipe)
 }
 
-const update =async (recipeId: number ,recipe: Omit<RecipeUpdate, "ingredients">) => {
-	await getRecipeById(recipeId)
+const update =async (recipeId: number ,recipe: Omit<RecipeUpdate, "ingredients">, userId: number) => {
+	const { userId: recipeUserId } = await getRecipeById(recipeId)
+
+	checkIfUserIdIsRecipeUser(recipeUserId, userId)
+
 	await recipeRepository.updateRecipe(recipeId, recipe)
 
 	return
 }
 
-const deleteRecipe =async (recipeId: number) => {
-	await getRecipeById(recipeId)
+const deleteRecipe =async (recipeId: number, userId: number) => {
+	const { userId: recipeUserId } = await getRecipeById(recipeId)
+
+	checkIfUserIdIsRecipeUser(recipeUserId, userId)
+
 	await recipeRepository.deleteRecipe(recipeId)
 
 	return 
@@ -58,6 +64,11 @@ const checkExistingUserRecipeName =async (userId: number, name:string) => {
 	if(recipes.length) throw {message: "Already created recipe with this name", status: 409}
 
 	return recipes
+}
+
+const checkIfUserIdIsRecipeUser = (recipeUserId: number, userId: number) => {
+	if(recipeUserId !== userId) throw {message: "Not Allowed", status: 401}
+	return
 }
 
 const organizeRecipes = (recipes) => {

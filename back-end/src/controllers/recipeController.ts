@@ -25,10 +25,11 @@ const create =async (req: Request, res: Response) => {
 
 const update =async (req: Request, res: Response) => {
 	const id = req.params.id
+	const {id : userId} = res.locals.user
 	const recipe: RecipeUpdate = req.body
 
 	if(recipe.image || recipe.description || recipe.name) {
-		await recipeService.update(Number(id), {image: recipe.image, description: recipe.description, name: recipe.name})
+		await recipeService.update(Number(id), {image: recipe.image, description: recipe.description, name: recipe.name}, Number(userId))
 	} 
 
 	if(recipe.ingredients) {
@@ -40,8 +41,8 @@ const update =async (req: Request, res: Response) => {
 
 const deleteRecipe =async (req: Request, res: Response) => {
 	const id = req.params.id
-
-	await recipeService.deleteRecipe(Number(id))
+	const {id : userId} = res.locals.user
+	await recipeService.deleteRecipe(Number(id), Number(userId))
 
 	return res.sendStatus(204)
 }
