@@ -71,7 +71,7 @@ describe("Recipes test", () => {
 
 		expect(res.status).toBe(201)
 		expect(recipeUpdated.description).toBe("teste")
-		expect(recipeUpdated.recipesIngredients.length).toBe(3)
+		expect(recipeUpdated.recipesIngredients.length).toBe(2)
 	})
 
 	it("Get recipe",async () => {
@@ -106,6 +106,24 @@ describe("Recipes test", () => {
 
 		expect(res.status).toBe(200)
 		expect(res.body.length).toBe(2)
+	})
+
+	it("Delete recipe", async () => {
+		const { user, authorization } = await sessionFactory.addSession()
+		const recipe = await recipeFactory.addRecipe(user)
+		const recipe2 = await recipeFactory.addRecipe(user)
+
+		const res = await supertest(app).delete(`/recipe/${recipe.recipeId}`).set({authorization})
+
+		const userRecipes = await prisma.recipes.findMany({
+			where: {
+				userId: user.id
+			}
+		})
+
+		expect(res.status).toBe(204)
+		expect(userRecipes.length).toBe(1)
+		expect(userRecipes[0].id).toBe(recipe2.recipeId)
 	})
 })
 
