@@ -16,7 +16,7 @@ describe('Users test', () => {
 		expect(res.status).toBe(201)
 	})
 
-	it("Should create user", async() => {
+	it("Should signIn user", async() => {
 		const {email , password} = await userFactory.addUser();
 
 		const res = await supertest(app).post("/signIn").send({email , password})
