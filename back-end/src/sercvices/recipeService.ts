@@ -1,8 +1,6 @@
 import { Field, OrderBy, RecipeUpdate } from "../controllers/recipeController.js";
 import recipeRepository from "../repositories/recipeRepository.js";
 import { Recipe } from "../schemas/recipeSchema.js";
-import userService from "./userService.js";
-
 const create =async (recipe: Recipe) => {
 	await checkExistingUserRecipeName(recipe.userId, recipe.name)
 
@@ -46,7 +44,7 @@ const getRecipeById =async (id:number) => {
 	return recipe
 }
 
-const getAllRecipes =async (field: Field, orderBy: OrderBy, id?: number) => {
+const getAllRecipes =async (field?: Field, orderBy?: OrderBy, id?: number) => {
 	
 	const recipes = await recipeRepository.getAll(field, orderBy, id)
 

@@ -78,7 +78,6 @@ const getDetailedRecipeById =async (id:number) => {
 	return recipe
 }
 
-// TO-DO merge both functions
 const getAll =async (field: Field = "createdAt", orderBy: OrderBy = "desc", userId?: number) => {
 	const recipes = await prisma.recipes.findMany({
 		where: {
