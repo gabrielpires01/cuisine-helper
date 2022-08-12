@@ -37,6 +37,17 @@ const getOneById =async (id:number) => {
 	return recipe
 }
 
+const getOneByName =async (userId: number, name:string) => {
+	const recipe = await prisma.recipes.findMany({
+		where: {
+			userId,
+			name
+		}
+	})
+
+	return recipe
+}
+
 const getDetailedRecipeById =async (id:number) => {
 	const recipe = await prisma.recipes.findUnique({
 		where:{
@@ -114,6 +125,7 @@ const getAllByUserId =async (userId: number) => {
 export default {
 	addRecipe,
 	getOneById,
+	getOneByName,
 	getDetailedRecipeById,
 	getAll,
 	getAllByUserId,

@@ -4,7 +4,8 @@ import { Recipe } from "../schemas/recipeSchema.js";
 import userService from "./userService.js";
 
 const create =async (recipe: Recipe) => {
-	// TO-DO : User can create only unique recipes
+	await checkExistingUserRecipeName(recipe.userId, recipe.name)
+
 	return await recipeRepository.addRecipe(recipe)
 }
 
@@ -64,6 +65,12 @@ const getAllRecipesByUserId =async(id: number) => {
 	return organizedRecipes
 }
 
+const checkExistingUserRecipeName =async (userId: number, name:string) => {
+	const recipes = await recipeRepository.getOneByName(userId, name)
+	if(recipes.length) throw {message: "Already created recipe with this name", status: 409}
+
+	return recipes
+}
 
 const organizeRecipes = (recipes) => {
 
