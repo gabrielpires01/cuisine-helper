@@ -55,18 +55,11 @@ const getOne =async (req: Request, res: Response) => {
 }
 
 const getAll =async (req: Request, res:Response) => {
+	const id = req.params?.id
 	const field = req.query?.field as Field
 	const orderBy = req.query?.orderBy as OrderBy
 
-	const recipes = await recipeService.getAllRecipes(field, orderBy);
-
-	return res.status(200).send(recipes)
-}
-
-const getAllByUserId =async (req: Request, res: Response) => {
-	const id = req.params.id
-
-	const recipes = await recipeService.getAllRecipesByUserId(Number(id));
+	const recipes = await recipeService.getAllRecipes(field, orderBy, Number(id));
 
 	return res.status(200).send(recipes)
 }
@@ -76,6 +69,5 @@ export {
 	update,
 	getOne,
 	getAll,
-	getAllByUserId,
 	deleteRecipe
 }

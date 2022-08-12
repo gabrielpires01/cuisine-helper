@@ -46,19 +46,9 @@ const getRecipeById =async (id:number) => {
 	return recipe
 }
 
-const getAllRecipes =async (field: Field, orderBy: OrderBy) => {
+const getAllRecipes =async (field: Field, orderBy: OrderBy, id?: number) => {
 	
-	const recipes = await recipeRepository.getAll(field, orderBy)
-
-	const organizedRecipes = organizeRecipes(recipes)
-
-	return organizedRecipes
-}
-
-const getAllRecipesByUserId =async(id: number) => {
-	await userService.checkUserById(id)
-
-	const recipes = await recipeRepository.getAllByUserId(id)
+	const recipes = await recipeRepository.getAll(field, orderBy, id)
 
 	const organizedRecipes = organizeRecipes(recipes)
 
@@ -90,6 +80,5 @@ export default {
 	getRecipeById,
 	getDetailedRecipeById,
 	getAllRecipes,
-	getAllRecipesByUserId,
 	deleteRecipe
 }

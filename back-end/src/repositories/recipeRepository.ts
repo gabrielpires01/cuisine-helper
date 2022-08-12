@@ -79,30 +79,10 @@ const getDetailedRecipeById =async (id:number) => {
 }
 
 // TO-DO merge both functions
-const getAll =async (field: Field, orderBy: OrderBy) => {
-	const recipes = await prisma.recipes.findMany({
-		select: {
-			id: true,
-			name: true,
-			image: true,
-			users: {
-				select: {
-					name: true
-				}
-			}
-		},
-		orderBy: {
-			[field]: orderBy? orderBy: "desc"
-		}
-	})
-
-	return recipes
-}
-
-const getAllByUserId =async (userId: number) => {
+const getAll =async (field: Field = "createdAt", orderBy: OrderBy = "desc", userId?: number) => {
 	const recipes = await prisma.recipes.findMany({
 		where: {
-			userId
+			...(userId ? {userId} : {})
 		},
 		select: {
 			id: true,
@@ -115,7 +95,7 @@ const getAllByUserId =async (userId: number) => {
 			}
 		},
 		orderBy: {
-			createdAt: "desc"
+			[field]: orderBy
 		}
 	})
 
@@ -128,7 +108,6 @@ export default {
 	getOneByName,
 	getDetailedRecipeById,
 	getAll,
-	getAllByUserId,
 	updateRecipe,
 	deleteRecipe,
 }
