@@ -19,19 +19,19 @@ const updateRecipe =async (recipeId:number, recipe: Omit<RecipeUpdate, "ingredie
 	return
 }
 
+const deleteRecipe =async (recipeId:number) => {
+	await prisma.recipes.delete({
+		where: {
+			id: recipeId
+		}
+	})
+	return 
+}
+
 const getOneById =async (id:number) => {
 	const recipe = await prisma.recipes.findUnique({
 		where: {
 			id
-		},
-		select: {
-			id: true,
-			recipesIngredients: {
-				select: {
-					id: true,
-					ingredientId: true
-				}
-			}
 		}
 	})
 	return recipe
@@ -117,5 +117,6 @@ export default {
 	getDetailedRecipeById,
 	getAll,
 	getAllByUserId,
-	updateRecipe
+	updateRecipe,
+	deleteRecipe,
 }

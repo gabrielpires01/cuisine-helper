@@ -15,6 +15,13 @@ const update =async (recipeId: number ,recipe: Omit<RecipeUpdate, "ingredients">
 	return
 }
 
+const deleteRecipe =async (recipeId: number) => {
+	await getRecipeById(recipeId)
+	await recipeRepository.deleteRecipe(recipeId)
+
+	return 
+}
+
 const getDetailedRecipeById =async (id:number) => {
 	await getRecipeById(id)
 
@@ -76,5 +83,6 @@ export default {
 	getRecipeById,
 	getDetailedRecipeById,
 	getAllRecipes,
-	getAllRecipesByUserId
+	getAllRecipesByUserId,
+	deleteRecipe
 }

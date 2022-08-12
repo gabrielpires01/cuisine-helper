@@ -38,6 +38,14 @@ const update =async (req: Request, res: Response) => {
 	return res.sendStatus(202)
 }
 
+const deleteRecipe =async (req: Request, res: Response) => {
+	const id = req.params.id
+
+	await recipeService.deleteRecipe(Number(id))
+
+	return res.sendStatus(204)
+}
+
 const getOne =async (req: Request, res: Response) => {
 	const id = req.params.id;
 
@@ -68,5 +76,6 @@ export {
 	update,
 	getOne,
 	getAll,
-	getAllByUserId
+	getAllByUserId,
+	deleteRecipe
 }

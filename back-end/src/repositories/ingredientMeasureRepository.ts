@@ -34,12 +34,12 @@ const updateIngredientAndMeasure =async (ingredientId: number, measure: string, 
 				}
 			}
 		}
-		
 	})
-}
 
+	return 
+}
 
 export default {
 	addIngredientAndMeasure,
-	updateIngredientAndMeasure,
+	updateIngredientAndMeasure
 }
