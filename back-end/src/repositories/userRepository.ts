@@ -16,7 +16,16 @@ const getUserByEmail =async (email:string)=> {
 	})
 }
 
+const getUserById =async (id: number)=> {
+	return await prisma.users.findUnique({
+		where: {
+			id
+		}
+	})
+}
+
 export default {
 	create,
 	getUserByEmail,
+	getUserById
 }

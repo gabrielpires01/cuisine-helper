@@ -7,7 +7,7 @@ const signUp =async (req:Request, res: Response) => {
 
 	await userService.signUp(user)
 
-	return res.send(201)
+	return res.sendStatus(201)
 }
 
 const signIn =async (req:Request, res: Response) => {

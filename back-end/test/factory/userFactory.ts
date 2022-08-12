@@ -17,11 +17,11 @@ const addUser =async () => {
 
 	const hashPass = bcrypt.hashSync(user.password, 10);
 
-	await prisma.users.create({
+	const { id } = await prisma.users.create({
 		data: {...user, password: hashPass}
 	})
 
-	return {email: user.email, password: user.password}
+	return {email: user.email, password: user.password, id}
 }
 
 export default {
