@@ -94,6 +94,19 @@ describe("Recipes test", () => {
 		expect(res.status).toBe(200)
 		expect(res.body.length).toBe(2)
 	})
+
+	it("Get all recipes from user",async () => {
+		const { user: user1 } = await sessionFactory.addSession()
+		const { user: user2 } = await sessionFactory.addSession()
+		await recipeFactory.addRecipe(user1)
+		await recipeFactory.addRecipe(user1)
+		await recipeFactory.addRecipe(user2)
+
+		const res = await supertest(app).get(`/recipes/${user1.id}`)
+
+		expect(res.status).toBe(200)
+		expect(res.body.length).toBe(2)
+	})
 })
 
 afterAll(async () => {
