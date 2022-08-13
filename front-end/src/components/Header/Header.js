@@ -10,7 +10,10 @@ function Header ({image, id}) {
 }
 
 const Component = styled.nav`
-	width: 120px;
+	:hover {
+		cursor: pointer;
+	}
+	max-width: 140px;
 	position: fixed;
 	right: 0;
 	padding: 5px 10px;
