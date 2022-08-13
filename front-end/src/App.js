@@ -1,13 +1,13 @@
-import './App.css';
-import { Router, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Timeline from './pages/Timeline/Timeline';
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Timeline />}/>
 
-      </Routes>
-    </Router>
+      
+    </Routes>
   );
 }
 
