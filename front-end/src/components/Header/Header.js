@@ -13,8 +13,8 @@ const Component = styled.nav`
 	:hover {
 		cursor: pointer;
 	}
-	max-width: 140px;
-	position: fixed;
+	max-width: 200px;
+	position: absolute;
 	right: 0;
 	padding: 5px 10px;
 `

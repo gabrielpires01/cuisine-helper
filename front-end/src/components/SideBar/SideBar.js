@@ -45,7 +45,7 @@ function SideBar () {
 }
 
 const Component = styled.div`
-	position: fixed;
+	position: absolute;
 	width: 30px;
 	border-radius: 15px;
 	padding: 10px;
