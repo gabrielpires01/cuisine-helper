@@ -19,7 +19,8 @@ const Container = styled.div`
 const LogoContainer = styled.div`
 	font-family: "Kaniti";
 	font-size: 50px;
-	color: #FF784F; 
+	color: #FF784F;
+	text-align: center;
 `
 
 export default Logo

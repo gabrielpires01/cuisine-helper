@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import RecipeCard from "../RecipeCard/RecipeCard";
+import RecipeList from "../RecipesList/RecipeList";
 
 function Home () {
 	return (
 		<Component>
-			<RecipeCard />
+			<RecipeList />
 		</Component>
 	)
 }

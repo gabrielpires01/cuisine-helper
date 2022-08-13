@@ -1,37 +1,36 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material"
-import styled from "styled-components"
 
-function RecipeCard () {
+function RecipeCard ({recipe}) {
 	return (
 		<Card
 			sx={{
 				maxWidth: 500,
-				minWidth: 300
+				minWidth: 300,
+				backgroundColor: "#EDFFD9",
+				boxShadow: "1px 1px 3px #3A3042"
 			}}
 		>
 			<CardActionArea>
 				<CardMedia 
 					component="img"
 					heigth="20"
-					image="https://img.itdg.com.br/tdg/images/blog/uploads/2018/04/salada.jpg"
+					image={recipe.Image}
 				/>
 				<CardContent>
 					<Typography variant="h6" component="div">
-						Recipe Name
+						{recipe.Name}
 					</Typography>
 					<Typography variant="body1" color="text.primary">
-						Lizards are a widespread group of squamate reptiles, with over 6,000
-						species, ranging across all continents except Antarctica
+						{recipe.Description}
+					</Typography>
+					<Typography variant="body2" color="text.secondary">
+						Author: {recipe.AuthorName}
 					</Typography>
 				</CardContent>
-				<UserComponent>Test User</UserComponent>
+
 			</CardActionArea>
 		</Card>
 	)
 }
-
-const UserComponent = styled.div`
-	margin-left: 16px;
-`
 
 export default RecipeCard 
