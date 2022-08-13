@@ -24,7 +24,8 @@ function UserIcon ({image = guest, id}) {
 								padding: 1,
 								height: 30,
 								width: 90,
-								display: "flex", 
+								display: "flex",
+								color: "#fff",
 								justifyContent: "space-between"
 						}}>
 							<MdLogin />
@@ -36,6 +37,7 @@ function UserIcon ({image = guest, id}) {
 								height: 30,
 								width: 90,
 								display: "flex", 
+								color: "#fff",
 								justifyContent: "space-between"
 						}}>
 							<AiOutlineUser />
@@ -55,7 +57,7 @@ const Component = styled.div`
 	align-items: center;
 	border-radius: 15px;
 	margin: 10px;
-
+	z-index: 10;
 	${({ open }) => open && `
 		background: #DB9D47;
 		padding: 10px;
@@ -63,7 +65,6 @@ const Component = styled.div`
 `
 
 const OptionDisplay = styled.div`
-
 `
 
 export default UserIcon
