@@ -15,7 +15,7 @@ const Component = styled.div`
 	align-items: center;
 	padding-top: 200px;
 	div {
-		margin-bottom: 20px;
+		margin: 20px;
 	}
 `
 

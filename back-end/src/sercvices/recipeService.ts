@@ -37,6 +37,8 @@ const getDetailedRecipeById =async (id:number) => {
 		Name: recipe.name,
 		Image: recipe.image,
 		AuthorName: recipe.users.name,
+		Method: recipe.method,
+		Description: recipe.description,
 		Ingredients: recipe.recipesIngredients.map(item => `${item.ingredients.name}: ${item.measure}`)
 	}
 
@@ -78,6 +80,7 @@ const organizeRecipes = (recipes) => {
 		Name: recipe.name,
 		Image: recipe.image,
 		AuthorName: recipe.users.name,
+		Description: recipe.description,
 	}))
 
 	return organizedRecipes

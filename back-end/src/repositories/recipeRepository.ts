@@ -58,6 +58,8 @@ const getDetailedRecipeById =async (id:number) => {
 			id: true,
 			name: true,
 			image: true,
+			description:true,
+			method: true,
 			users: {
 				select: {
 					name: true
@@ -88,6 +90,7 @@ const getAll =async (field: Field = "createdAt", orderBy: OrderBy = "desc", user
 			id: true,
 			name: true,
 			image: true,
+			description: true,
 			users: {
 				select: {
 					name: true

@@ -3,7 +3,6 @@ import { prisma } from '../../src/database.js';
 import recipeRepository from '../../src/repositories/recipeRepository.js';
 import recipeService from '../../src/sercvices/recipeService.js';
 import recipeFactory from '../factory/recipeFactory.js';
-import sessionFactory from '../factory/sessionFactory.js';
 
 beforeEach(async() => {
 	await prisma.$executeRaw`TRUNCATE TABLE recipes CASCADE`
@@ -47,6 +46,7 @@ describe("Test Recipe Service", () => {
 					id: recipe.id, 
 					image: recipe.image,
 					name: recipe.name,
+					description: recipe.description,
 					users: {
 						name: "teste"
 					}
@@ -60,7 +60,8 @@ describe("Test Recipe Service", () => {
 				Id: recipe.id, 
 				Image: recipe.image,
 				Name: recipe.name,
-				AuthorName: "teste"
+				AuthorName: "teste",
+				Description: recipe.description
 			}
 		])
 		

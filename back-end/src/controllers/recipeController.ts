@@ -9,14 +9,15 @@ export interface RecipeUpdate {
 	image?: string
 	name?: string
 	description?: string
+	method?: string
 	ingredients?: object
 }
 
 const create =async (req: Request, res: Response) => {
-	const {description, name, image, ingredients} = req.body
+	const {description, name, image, ingredients, method} = req.body
 	const { id: userId } = res.locals.user
 
-	const recipeId = await recipeService.create({userId, description, name, image})
+	const recipeId = await recipeService.create({userId, description, name, image, method})
 
 	await ingredientService.handleIngredients(ingredients, recipeId)
 
@@ -29,7 +30,7 @@ const update =async (req: Request, res: Response) => {
 	const recipe: RecipeUpdate = req.body
 
 	if(recipe.image || recipe.description || recipe.name) {
-		await recipeService.update(Number(id), {image: recipe.image, description: recipe.description, name: recipe.name}, Number(userId))
+		await recipeService.update(Number(id), {image: recipe.image, description: recipe.description, name: recipe.name, method: recipe.method}, Number(userId))
 	} 
 
 	if(recipe.ingredients) {

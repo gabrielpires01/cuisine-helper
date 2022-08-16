@@ -19,7 +19,10 @@ function RecipeList () {
 }
 
 const Component = styled.div`
-
+	display: flex;
+	align-items: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
 `
 
 export default RecipeList

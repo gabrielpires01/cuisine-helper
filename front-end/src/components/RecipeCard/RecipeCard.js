@@ -5,8 +5,8 @@ function RecipeCard ({recipe}) {
 		<Card
 			sx={{
 				maxWidth: 500,
-				minWidth: 300,
-				backgroundColor: "#EDFFD9",
+				minWidth: 280,
+				backgroundColor: "#DB9D47",
 				boxShadow: "1px 1px 3px #3A3042"
 			}}
 		>
@@ -16,7 +16,7 @@ function RecipeCard ({recipe}) {
 					heigth="20"
 					image={recipe.Image}
 				/>
-				<CardContent>
+				<CardContent sx={{padding: 0}}>
 					<Typography variant="h6" component="div">
 						{recipe.Name}
 					</Typography>

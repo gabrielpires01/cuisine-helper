@@ -15,7 +15,8 @@ const createRecipe = () => {
 		image: faker.image.food(),
 		name: faker.name.middleName(),
 		description: faker.lorem.sentence(),
-		createdAt: faker.date.past()
+		createdAt: faker.date.past(),
+		method: faker.lorem.paragraphs()
 	}
 
 	return recipe
@@ -28,7 +29,8 @@ const createRecipeWithRealId = (userId: number) => {
 		image: faker.image.food(),
 		name: faker.name.middleName(),
 		description: faker.lorem.sentence(),
-		createdAt: faker.date.past()
+		createdAt: faker.date.past(),
+		method: faker.lorem.paragraphs()
 	}
 
 	return recipe
@@ -43,7 +45,8 @@ const addRecipe = async(user: User) => {
 			name: recipe.name,
 			description: recipe.description,
 			userId: user.id,
-			image: recipe.image
+			image: recipe.image,
+			method: recipe.method
 		}
 	})
 

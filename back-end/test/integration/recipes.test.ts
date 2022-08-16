@@ -22,6 +22,7 @@ describe("Recipes test", () => {
 			.send(
 				{
 					description: recipe.description,
+					method: recipe.method,
 					name: recipe.name,
 					image: recipe.image,
 					ingredients
